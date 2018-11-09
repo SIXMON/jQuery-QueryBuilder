@@ -1,6 +1,6 @@
 {
   "name": "jQuery-QueryBuilder",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "author": {
     "name": "Damien \"Mistic\" Sorel",
     "email": "contact@git.strangeplanet.fr",
@@ -11,6 +11,8 @@
   "dependencies": {
     "bootstrap": ">=3.1.0 <4",
     "dot": ">=1.0.3",
+    "global": "^4.3.2",
+    "grunt-cli": "^1.3.2",
     "jquery": "^3.3.1",
     "jquery-extendext": ">=0.1.2",
     "moment": "^2.21.0"

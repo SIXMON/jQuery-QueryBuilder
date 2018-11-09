@@ -276,7 +276,7 @@
 
 
 /*!
- * jQuery QueryBuilder 2.5.2
+ * jQuery QueryBuilder 2.5.3
  * Copyright 2014-2018 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
  * Licensed under MIT (https://opensource.org/licenses/MIT)
  */
@@ -2959,7 +2959,8 @@ QueryBuilder.prototype.getValidationMessage = function(validation, type, def) {
 };
 
 
-QueryBuilder.templates.group = '\
+QueryBuilder.templates.group =
+    '\
 <div id="{{= it.group_id }}" class="rules-group-container"> \
   <div class="rules-group-header"> \
     <div class="btn-group pull-right group-actions"> \
@@ -2993,7 +2994,8 @@ QueryBuilder.templates.group = '\
   </div> \
 </div>';
 
-QueryBuilder.templates.rule = '\
+QueryBuilder.templates.rule =
+    '\
 <div id="{{= it.rule_id }}" class="rule-container"> \
   <div class="rule-header"> \
     <div class="btn-group pull-right rule-actions"> \
@@ -3010,7 +3012,8 @@ QueryBuilder.templates.rule = '\
   <div class="rule-value-container"></div> \
 </div>';
 
-QueryBuilder.templates.filterSelect = '\
+QueryBuilder.templates.filterSelect =
+    '\
 {{ var optgroup = null; }} \
 <select class="form-control" name="{{= it.rule.id }}_filter"> \
   {{? it.settings.display_empty_filter }} \
@@ -3028,7 +3031,8 @@ QueryBuilder.templates.filterSelect = '\
   {{? optgroup !== null }}</optgroup>{{?}} \
 </select>';
 
-QueryBuilder.templates.operatorSelect = '\
+QueryBuilder.templates.operatorSelect =
+    '\
 {{? it.operators.length === 1 }} \
 <span> \
 {{= it.translate("operators", it.operators[0].type) }} \
@@ -3048,7 +3052,8 @@ QueryBuilder.templates.operatorSelect = '\
   {{? optgroup !== null }}</optgroup>{{?}} \
 </select>';
 
-QueryBuilder.templates.ruleValueSelect = '\
+QueryBuilder.templates.ruleValueSelect =
+    '\
 {{ var optgroup = null; }} \
 <select class="form-control" name="{{= it.name }}" {{? it.rule.filter.multiple }}multiple{{?}}> \
   {{? it.rule.filter.placeholder }} \
@@ -3082,7 +3087,7 @@ QueryBuilder.prototype.getGroupTemplate = function(group_id, level) {
         conditions: this.settings.conditions,
         icons: this.icons,
         settings: this.settings,
-        translate: this.translate.bind(this)
+        translate: this.translate.bind(this),
     });
 
     /**
@@ -3093,7 +3098,7 @@ QueryBuilder.prototype.getGroupTemplate = function(group_id, level) {
      * @param {int} level
      * @returns {string}
      */
-    return this.change('getGroupTemplate', h, level);
+    return this.change("getGroupTemplate", h, level);
 };
 
 /**
@@ -3109,7 +3114,7 @@ QueryBuilder.prototype.getRuleTemplate = function(rule_id) {
         rule_id: rule_id,
         icons: this.icons,
         settings: this.settings,
-        translate: this.translate.bind(this)
+        translate: this.translate.bind(this),
     });
 
     /**
@@ -3119,7 +3124,7 @@ QueryBuilder.prototype.getRuleTemplate = function(rule_id) {
      * @param {string} html
      * @returns {string}
      */
-    return this.change('getRuleTemplate', h);
+    return this.change("getRuleTemplate", h);
 };
 
 /**
@@ -3137,7 +3142,7 @@ QueryBuilder.prototype.getRuleFilterSelect = function(rule, filters) {
         filters: filters,
         icons: this.icons,
         settings: this.settings,
-        translate: this.translate.bind(this)
+        translate: this.translate.bind(this),
     });
 
     /**
@@ -3149,7 +3154,7 @@ QueryBuilder.prototype.getRuleFilterSelect = function(rule, filters) {
      * @param {QueryBuilder.Filter[]} filters
      * @returns {string}
      */
-    return this.change('getRuleFilterSelect', h, rule, filters);
+    return this.change("getRuleFilterSelect", h, rule, filters);
 };
 
 /**
@@ -3167,7 +3172,7 @@ QueryBuilder.prototype.getRuleOperatorSelect = function(rule, operators) {
         operators: operators,
         icons: this.icons,
         settings: this.settings,
-        translate: this.translate.bind(this)
+        translate: this.translate.bind(this),
     });
 
     /**
@@ -3179,7 +3184,7 @@ QueryBuilder.prototype.getRuleOperatorSelect = function(rule, operators) {
      * @param {QueryBuilder.Operator[]} operators
      * @returns {string}
      */
-    return this.change('getRuleOperatorSelect', h, rule, operators);
+    return this.change("getRuleOperatorSelect", h, rule, operators);
 };
 
 /**
@@ -3197,7 +3202,7 @@ QueryBuilder.prototype.getRuleValueSelect = function(name, rule) {
         rule: rule,
         icons: this.icons,
         settings: this.settings,
-        translate: this.translate.bind(this)
+        translate: this.translate.bind(this),
     });
 
     /**
@@ -3209,7 +3214,7 @@ QueryBuilder.prototype.getRuleValueSelect = function(name, rule) {
      * @param {Rule} rule
      * @returns {string}
      */
-    return this.change('getRuleValueSelect', h, name, rule);
+    return this.change("getRuleValueSelect", h, name, rule);
 };
 
 /**
@@ -3223,53 +3228,79 @@ QueryBuilder.prototype.getRuleValueSelect = function(name, rule) {
 QueryBuilder.prototype.getRuleInput = function(rule, value_id) {
     var filter = rule.filter;
     var validation = rule.filter.validation || {};
-    var name = rule.id + '_value_' + value_id;
-    var c = filter.vertical ? ' class=block' : '';
-    var h = '';
+    var name = rule.id + "_value_" + value_id;
+    var c = filter.vertical ? " class=block" : "";
+    var h = "";
 
-    if (typeof filter.input == 'function') {
+    if (typeof filter.input == "function") {
         h = filter.input.call(this, rule, name);
-    }
-    else {
+    } else {
         switch (filter.input) {
-            case 'radio':
-            case 'checkbox':
+            case "radio":
+            case "checkbox":
                 Utils.iterateOptions(filter.values, function(key, val) {
-                    h += '<label' + c + '><input type="' + filter.input + '" name="' + name + '" value="' + key + '"> ' + val + '</label> ';
+                    h +=
+                        "<label" +
+                        c +
+                        '><input type="' +
+                        filter.input +
+                        '" name="' +
+                        name +
+                        '" value="' +
+                        key +
+                        '"> <span>' +
+                        val +
+                        "</span></label> ";
                 });
                 break;
 
-            case 'select':
+            case "select":
                 h = this.getRuleValueSelect(name, rule);
                 break;
 
-            case 'textarea':
+            case "textarea":
                 h += '<textarea class="form-control" name="' + name + '"';
                 if (filter.size) h += ' cols="' + filter.size + '"';
                 if (filter.rows) h += ' rows="' + filter.rows + '"';
-                if (validation.min !== undefined) h += ' minlength="' + validation.min + '"';
-                if (validation.max !== undefined) h += ' maxlength="' + validation.max + '"';
-                if (filter.placeholder) h += ' placeholder="' + filter.placeholder + '"';
-                h += '></textarea>';
+                if (validation.min !== undefined)
+                    h += ' minlength="' + validation.min + '"';
+                if (validation.max !== undefined)
+                    h += ' maxlength="' + validation.max + '"';
+                if (filter.placeholder)
+                    h += ' placeholder="' + filter.placeholder + '"';
+                h += "></textarea>";
                 break;
 
-            case 'number':
-                h += '<input class="form-control" type="number" name="' + name + '"';
-                if (validation.step !== undefined) h += ' step="' + validation.step + '"';
-                if (validation.min !== undefined) h += ' min="' + validation.min + '"';
-                if (validation.max !== undefined) h += ' max="' + validation.max + '"';
-                if (filter.placeholder) h += ' placeholder="' + filter.placeholder + '"';
+            case "number":
+                h +=
+                    '<input class="form-control" type="number" name="' +
+                    name +
+                    '"';
+                if (validation.step !== undefined)
+                    h += ' step="' + validation.step + '"';
+                if (validation.min !== undefined)
+                    h += ' min="' + validation.min + '"';
+                if (validation.max !== undefined)
+                    h += ' max="' + validation.max + '"';
+                if (filter.placeholder)
+                    h += ' placeholder="' + filter.placeholder + '"';
                 if (filter.size) h += ' size="' + filter.size + '"';
-                h += '>';
+                h += ">";
                 break;
 
             default:
-                h += '<input class="form-control" type="text" name="' + name + '"';
-                if (filter.placeholder) h += ' placeholder="' + filter.placeholder + '"';
-                if (filter.type === 'string' && validation.min !== undefined) h += ' minlength="' + validation.min + '"';
-                if (filter.type === 'string' && validation.max !== undefined) h += ' maxlength="' + validation.max + '"';
+                h +=
+                    '<input class="form-control" type="text" name="' +
+                    name +
+                    '"';
+                if (filter.placeholder)
+                    h += ' placeholder="' + filter.placeholder + '"';
+                if (filter.type === "string" && validation.min !== undefined)
+                    h += ' minlength="' + validation.min + '"';
+                if (filter.type === "string" && validation.max !== undefined)
+                    h += ' maxlength="' + validation.max + '"';
                 if (filter.size) h += ' size="' + filter.size + '"';
-                h += '>';
+                h += ">";
         }
     }
 
@@ -3282,7 +3313,7 @@ QueryBuilder.prototype.getRuleInput = function(rule, value_id) {
      * @param {string} name - the name that the input must have
      * @returns {string}
      */
-    return this.change('getRuleInput', h, rule, name);
+    return this.change("getRuleInput", h, rule, name);
 };
 
 
@@ -6403,7 +6434,7 @@ QueryBuilder.extend(/** @lends module:plugins.UniqueFilter.prototype */ {
 
 
 /*!
- * jQuery QueryBuilder 2.5.2
+ * jQuery QueryBuilder 2.5.3
  * Locale: English (en)
  * Author: Damien "Mistic" Sorel, http://www.strangeplanet.fr
  * Licensed under MIT (https://opensource.org/licenses/MIT)
